@@ -15,7 +15,6 @@
 		F3C155972969D1E40050E320 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F3C155962969D1E40050E320 /* FirebaseAuth */; };
 		F3C1559A2969D57E0050E320 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = F3C155992969D57E0050E320 /* GoogleSignIn */; };
 		F3C1559E2969D9130050E320 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C1559D2969D9130050E320 /* LoginVM.swift */; };
-		F3C155A32969DA800050E320 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C155A22969DA800050E320 /* Application.swift */; };
 		F3ECED2E296AA2360071EC88 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F3ECED2D296AA2360071EC88 /* GoogleSignInSwift */; };
 		F3ECED31296AB49F0071EC88 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3ECED30296AB49F0071EC88 /* LoginView.swift */; };
 /* End PBXBuildFile section */
@@ -29,7 +28,6 @@
 		F3C155932969D1030050E320 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F3C1559B2969D6CF0050E320 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F3C1559D2969D9130050E320 /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
-		F3C155A22969DA800050E320 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		F3ECED30296AB49F0071EC88 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -67,7 +65,6 @@
 		F3C1557929697CBD0050E320 /* GoogleLoginTutorial */ = {
 			isa = PBXGroup;
 			children = (
-				F3C1559F2969D9CB0050E320 /* Utilities */,
 				F3C1559C2969D8FC0050E320 /* ViewModel */,
 				F3C1559B2969D6CF0050E320 /* Info.plist */,
 				F3C155932969D1030050E320 /* GoogleService-Info.plist */,
@@ -94,14 +91,6 @@
 				F3C1559D2969D9130050E320 /* LoginVM.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		F3C1559F2969D9CB0050E320 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				F3C155A22969DA800050E320 /* Application.swift */,
-			);
-			path = Utilities;
 			sourceTree = "<group>";
 		};
 		F3ECED2C296AA2360071EC88 /* Frameworks */ = {
@@ -199,7 +188,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3C155A32969DA800050E320 /* Application.swift in Sources */,
 				F3C1557D29697CBD0050E320 /* ContentView.swift in Sources */,
 				F3C1557B29697CBD0050E320 /* GoogleLoginTutorialApp.swift in Sources */,
 				F3ECED31296AB49F0071EC88 /* LoginView.swift in Sources */,
