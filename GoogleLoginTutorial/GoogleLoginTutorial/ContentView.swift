@@ -22,7 +22,14 @@ struct ContentView: View {
                         // It's Simple to Integrate Now
                         if let clientId = FirebaseApp.app()?.options.clientID {
                         GoogleSignInButton {
-                            GIDSignIn.sharedInstance.signIn(withPresenting: UIApplication.shared.rootController())
+                            GIDSignIn.sharedInstance.signIn(withPresenting: UIApplication.shared.rootController()) { user, error in
+                                if let error = error {
+                                    print(error.localizedDescription)
+                                    return
+                                }
+                            }
+                            
+                            // MARK: Logging Google User into Firebase
                                 
                             }
                         }
