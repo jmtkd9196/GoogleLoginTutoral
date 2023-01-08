@@ -13,12 +13,35 @@ class SignupViewModel: ObservableObject {
     @Published var isLogin: Bool = false
     func signUpWithGoogle() {
         // get app client id
-        let clienId = FirebaseApp.app()?.options.clientID else { return }
+        guard let clientId = FirebaseApp.app()?.options.clientID else { return }
         
         // get configuration
-        let config = GIDConfiguration(clientID: clienId)
+        let config = GIDConfiguration(clientID: clientId)
         
         // SignIn
-        GIDSignIn.sharedInstance.signIn(with: config, presenting: )
+        GIDSignIn.sharedInstance.signIn(with: config, presenting: ApplicationUtility.rootViewController) {
+            [self] user, err in
+            
+            if let error = err {
+                print(error.localizedDescription)
+                return
+            }
+            
+            guard
+                let authentication = user?.authentication,
+                let idToken = authentication.idToekn
+            else { return }
+            
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: authentication.accessToken)
+            
+            Auth.auth().signIn(with: credential) { result, error in
+                if let err = error {
+                    print(err.localizedDescription)
+                    return
+                }
+                
+                guard let user = result.user else { return }
+            }
+        }
     }
 }
