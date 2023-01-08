@@ -17,6 +17,7 @@ class LoginVM: ObservableObject {
     @Published var showError: Bool = false
     @Published var errorMessage: String = ""
     
+    
     // MARK: Logging Google user into Firebase
     func logGoogleUser(user: GIDGoogleUser) {
         Task {
