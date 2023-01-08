@@ -8,40 +8,19 @@
 import SwiftUI
 import Firebase
 import GoogleSignIn
+import GoogleSignInSwift
 
-class SignupViewModel: ObservableObject {
-    @Published var isLogin: Bool = false
-    func signUpWithGoogle() {
-        // get app client id
-        guard let clientId = FirebaseApp.app()?.options.clientID else { return }
+class LoginVM: ObservableObject {
+    
+}
+
+
+extension UIApplication {
+    // Root Controller
+    func rootController() -> UIViewController {
+        guard let window = connectedScenes.first as? UIWindowScene else { return .init() }
+        guard let viewController = window.windows.last?.rootViewController else { return .init() }
         
-        // get configuration
-        let config = GIDConfiguration(clientID: clientId)
-        
-        // SignIn
-        GIDSignIn.sharedInstance.signIn(with: config, presenting: ApplicationUtility.rootViewController) {
-            [self] user, err in
-            
-            if let error = err {
-                print(error.localizedDescription)
-                return
-            }
-            
-            guard
-                let authentication = user?.authentication,
-                let idToken = authentication.idToekn
-            else { return }
-            
-            let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: authentication.accessToken)
-            
-            Auth.auth().signIn(with: credential) { result, error in
-                if let err = error {
-                    print(err.localizedDescription)
-                    return
-                }
-                
-                guard let user = result.user else { return }
-            }
-        }
+        return viewController
     }
 }
