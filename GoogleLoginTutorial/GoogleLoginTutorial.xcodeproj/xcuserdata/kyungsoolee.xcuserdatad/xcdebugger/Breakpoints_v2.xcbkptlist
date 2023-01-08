@@ -34,6 +34,38 @@
             endingLineNumber = "47"
             landmarkName = "CustomButton(isGoogle:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "E29CA517-921D-4FC0-ADF3-CBA09ADD3F1C - 6a8128629c2885e1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GoogleLoginTutorial.ContentView.CustomButton(isGoogle: Swift.Bool) -&gt; some"
+                  moduleName = "GoogleLoginTutorial"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kyungsoolee/Git%20Repositories/GoogleLoginTutoral/GoogleLoginTutorial/GoogleLoginTutorial/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "48"
+                  endingLineNumber = "48"
+                  offsetFromSymbolStart = "284">
+               </Location>
+               <Location
+                  uuid = "E29CA517-921D-4FC0-ADF3-CBA09ADD3F1C - dcd7532992def193"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "default argument 0 of GoogleLoginTutorial.ContentView.CustomButton(isGoogle: Swift.Bool) -&gt; some"
+                  moduleName = "GoogleLoginTutorial"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kyungsoolee/Git%20Repositories/GoogleLoginTutoral/GoogleLoginTutorial/GoogleLoginTutorial/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "47"
+                  endingLineNumber = "47"
+                  offsetFromSymbolStart = "4">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -66,6 +98,38 @@
             endingLineNumber = "47"
             landmarkName = "CustomButton(isGoogle:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2745EC74-72D3-40B2-8B88-CEA80133EF2E - 6a8128629c2885e1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GoogleLoginTutorial.ContentView.CustomButton(isGoogle: Swift.Bool) -&gt; some"
+                  moduleName = "GoogleLoginTutorial"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kyungsoolee/Git%20Repositories/GoogleLoginTutoral/GoogleLoginTutorial/GoogleLoginTutorial/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "48"
+                  endingLineNumber = "48"
+                  offsetFromSymbolStart = "284">
+               </Location>
+               <Location
+                  uuid = "2745EC74-72D3-40B2-8B88-CEA80133EF2E - dcd7532992def193"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "default argument 0 of GoogleLoginTutorial.ContentView.CustomButton(isGoogle: Swift.Bool) -&gt; some"
+                  moduleName = "GoogleLoginTutorial"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kyungsoolee/Git%20Repositories/GoogleLoginTutoral/GoogleLoginTutorial/GoogleLoginTutorial/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "47"
+                  endingLineNumber = "47"
+                  offsetFromSymbolStart = "4">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
