@@ -1,5 +1,5 @@
 # GoogleLoginTutoral
-This is Google Login Tutorial Repository.
+This is Google Sign In Tutorial for iOS with firebase. (Oauth 2.0)
 
 Youtube
 https://www.youtube.com/watch?v=NubKNnuMFio
