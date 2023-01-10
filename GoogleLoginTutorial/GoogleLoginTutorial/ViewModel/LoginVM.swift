@@ -28,9 +28,6 @@ class LoginVM: ObservableObject {
                 let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
                 
                 try await Auth.auth().signIn(with: credential)
-                
-                print("Success Google!")
-                print("accessToken \(accessToken)")
                 await MainActor.run(body: {
                     withAnimation(.easeInOut) {
                         logStatus = true

@@ -29,11 +29,12 @@ struct LoginView: View {
                                     print(error.localizedDescription)
                                     return
                                 }
-                                // MARK: Logging Google User into Firebase
-//                                if let user {
-//                                    //GIDGoogleUser
-////                                    loginModel.logGoogleUser(user: user)
-//                                }
+                                // Test code
+                                print("Success Google!")
+                                print(result.user.idToken?.tokenString)
+                                print(result.user.profile?.name)
+                                print(result.user.profile?.email)
+                                
                             }
                         }
                         .blendMode(.overlay)
