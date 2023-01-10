@@ -65,12 +65,11 @@
 		F3C1557929697CBD0050E320 /* GoogleLoginTutorial */ = {
 			isa = PBXGroup;
 			children = (
-				F3C1559C2969D8FC0050E320 /* ViewModel */,
 				F3C1559B2969D6CF0050E320 /* Info.plist */,
 				F3C155932969D1030050E320 /* GoogleService-Info.plist */,
 				F3C1557A29697CBD0050E320 /* GoogleLoginTutorialApp.swift */,
-				F3C1557C29697CBD0050E320 /* ContentView.swift */,
 				F3ECED2F296AB4900071EC88 /* View */,
+				F3C1559C2969D8FC0050E320 /* ViewModel */,
 				F3C1557E29697CBE0050E320 /* Assets.xcassets */,
 				F3C1558029697CBE0050E320 /* Preview Content */,
 			);
@@ -103,6 +102,7 @@
 		F3ECED2F296AB4900071EC88 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F3C1557C29697CBD0050E320 /* ContentView.swift */,
 				F3ECED30296AB49F0071EC88 /* LoginView.swift */,
 			);
 			path = View;

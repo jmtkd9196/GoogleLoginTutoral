@@ -25,11 +25,12 @@ class LoginVM: ObservableObject {
                 // 꼭 tokenString을 써서 string값으로 반환해줘야 한다. 그래야 credential에 넣을 때 인자의 type이 맞는다.
                 guard let idToken = user.idToken?.tokenString else { return }
                 let accessToken = user.accessToken.tokenString
-                let credential = OAuthProvider.credential(withProviderID: idToken, accessToken: accessToken)
+                let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
                 
                 try await Auth.auth().signIn(with: credential)
                 
                 print("Success Google!")
+                print("accessToken \(accessToken)")
                 await MainActor.run(body: {
                     withAnimation(.easeInOut) {
                         logStatus = true
@@ -47,6 +48,7 @@ class LoginVM: ObservableObject {
             showError.toggle()
         })
     }
+    
 }
 
 

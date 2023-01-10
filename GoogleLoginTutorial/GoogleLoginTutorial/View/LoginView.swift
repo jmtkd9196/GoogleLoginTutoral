@@ -20,17 +20,23 @@ struct LoginView: View {
                     // MARK: We Have Native Google Sign in Button
                     // It's Simple to Integrate Now
                     if let clientId = FirebaseApp.app()?.options.clientID {
-                    GoogleSignInButton {
-                        GIDSignIn.sharedInstance.signIn(withPresenting: UIApplication.shared.rootController()) { user, error in
-                            if let error = error {
-                                print(error.localizedDescription)
-                                return
+                        GoogleSignInButton {
+                            GIDSignIn.sharedInstance.signIn(withPresenting: UIApplication.shared.rootController()) { signInResult, error in
+                                guard let result = signInResult else {
+                                    return
+                                }
+                                if let error = error {
+                                    print(error.localizedDescription)
+                                    return
+                                }
+                                // MARK: Logging Google User into Firebase
+//                                if let user {
+//                                    //GIDGoogleUser
+////                                    loginModel.logGoogleUser(user: user)
+//                                }
                             }
                         }
-                        
-                        // MARK: Logging Google User into Firebase
-                            
-                        }
+                        .blendMode(.overlay)
                     }
                 }
                 .clipped()
