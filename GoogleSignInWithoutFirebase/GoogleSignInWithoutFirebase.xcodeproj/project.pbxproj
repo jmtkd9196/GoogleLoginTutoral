@@ -15,6 +15,7 @@
 		F3844349296F1EE5005936A2 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F3844348296F1EE5005936A2 /* GoogleSignInSwift */; };
 		F384434B296F210D005936A2 /* client_615690412525-9uf5nt3d5kjbdt3utj9bi7r366iqlkh0.apps.googleusercontent.com.plist in Resources */ = {isa = PBXBuildFile; fileRef = F384434A296F210D005936A2 /* client_615690412525-9uf5nt3d5kjbdt3utj9bi7r366iqlkh0.apps.googleusercontent.com.plist */; };
 		F384434E296F21CF005936A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F384434D296F21CF005936A2 /* AppDelegate.swift */; };
+		F3844350296F24C7005936A2 /* SignInVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F384434F296F24C7005936A2 /* SignInVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		F384434A296F210D005936A2 /* client_615690412525-9uf5nt3d5kjbdt3utj9bi7r366iqlkh0.apps.googleusercontent.com.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "client_615690412525-9uf5nt3d5kjbdt3utj9bi7r366iqlkh0.apps.googleusercontent.com.plist"; sourceTree = "<group>"; };
 		F384434C296F2164005936A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F384434D296F21CF005936A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F384434F296F24C7005936A2 /* SignInVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				F3844339296F1D9E005936A2 /* ContentView.swift */,
 				F384433B296F1D9F005936A2 /* Assets.xcassets */,
 				F384433D296F1D9F005936A2 /* Preview Content */,
+				F384434F296F24C7005936A2 /* SignInVM.swift */,
 			);
 			path = GoogleSignInWithoutFirebase;
 			sourceTree = "<group>";
@@ -157,6 +160,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3844350296F24C7005936A2 /* SignInVM.swift in Sources */,
 				F384434E296F21CF005936A2 /* AppDelegate.swift in Sources */,
 				F384433A296F1D9E005936A2 /* ContentView.swift in Sources */,
 				F3844338296F1D9E005936A2 /* GoogleSignInWithoutFirebaseApp.swift in Sources */,
