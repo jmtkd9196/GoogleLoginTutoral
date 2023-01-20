@@ -76,7 +76,7 @@ struct ContentView: View {
           print(email)
           print(imageURL)
           
-          request("http://hwgapp.com/join", "POST", ["key":"hello!"]) { (success, data) in
+          request("http://hwgapp.com/v1/join", "POST", [String(accessToken!), String(refreshToken!)], ["authProvider" : "GOOGLE", "email" : email, "name" : name, "image" : imageURL?.absoluteString]) { (success, data) in
               self.message = data as! String
               
           }

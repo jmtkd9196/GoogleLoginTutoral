@@ -17,6 +17,7 @@
 		F384434E296F21CF005936A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F384434D296F21CF005936A2 /* AppDelegate.swift */; };
 		F3844350296F24C7005936A2 /* SignInVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F384434F296F24C7005936A2 /* SignInVM.swift */; };
 		F386F52B2976A13B00C774E8 /* UsersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F386F52A2976A13B00C774E8 /* UsersAPI.swift */; };
+		F386F52D2976B9F100C774E8 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = F386F52C2976B9F100C774E8 /* Users.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		F384434D296F21CF005936A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F384434F296F24C7005936A2 /* SignInVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVM.swift; sourceTree = "<group>"; };
 		F386F52A2976A13B00C774E8 /* UsersAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersAPI.swift; sourceTree = "<group>"; };
+		F386F52C2976B9F100C774E8 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 				F384433D296F1D9F005936A2 /* Preview Content */,
 				F384434F296F24C7005936A2 /* SignInVM.swift */,
 				F386F52A2976A13B00C774E8 /* UsersAPI.swift */,
+				F386F52C2976B9F100C774E8 /* Users.swift */,
 			);
 			path = GoogleSignInWithoutFirebase;
 			sourceTree = "<group>";
@@ -167,6 +170,7 @@
 				F384434E296F21CF005936A2 /* AppDelegate.swift in Sources */,
 				F386F52B2976A13B00C774E8 /* UsersAPI.swift in Sources */,
 				F384433A296F1D9E005936A2 /* ContentView.swift in Sources */,
+				F386F52D2976B9F100C774E8 /* Users.swift in Sources */,
 				F3844338296F1D9E005936A2 /* GoogleSignInWithoutFirebaseApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
