@@ -10,19 +10,13 @@ import GoogleSignInSwift
 import GoogleSignIn
 
 struct ContentView: View {
-    @StateObject var signInVM: SignInVM = .init()
+    @StateObject var userAPI: UserAPI = .init()
+    @StateObject var signVM: SignInVM = .init()
     
-    //test
-    @State private var accessToken : String? = ""
-    @State private var refreshToken : String? = ""
-    @State private var email : String? = ""
-    @State private var name : String? = ""
-    @State private var imageURL : URL?
-    @State private var message: String = "API 호출 중..."
-    //test
+
     var body: some View {
         VStack {
-            GoogleSignInButton(action: handleSignInButton)
+            GoogleSignInButton(action: signVM.handleSignInButton)
             
             
             
@@ -49,44 +43,7 @@ struct ContentView: View {
     }
     
     
-    func handleSignInButton() {
-      GIDSignIn.sharedInstance.signIn(withPresenting: UIApplication.shared.rootController()) { signInResult, error in
-          guard let result = signInResult else {
-            // Inspect error
-            return
-          }
-          // Test code
-          print("Success Google!")
-//          print(result.user.idToken?.tokenString)
-//          print("[RefreshToken] : \(result.user.refreshToken.tokenString)")
-//          print(result.user.profile?.name)
-//          print(result.user.profile?.email)
-//          print(result.user.profile?.givenName)
-//          print(result.user.profile?.hasImage)
-//          print("[imageURL] : \(result.user.profile?.imageURL(withDimension: 320))")
-          
-          accessToken = result.user.idToken?.tokenString
-          refreshToken = result.user.refreshToken.tokenString
-          imageURL = result.user.profile?.imageURL(withDimension: 320)
-          name = result.user.profile?.name
-          email = result.user.profile?.email
-          print(accessToken)
-          print(refreshToken)
-          print(name)
-          print(email)
-          print(imageURL)
-          
-          request("http://hwgapp.com/v1/join", "POST", [String(accessToken!), String(refreshToken!)], ["authProvider" : "GOOGLE", "email" : email, "name" : name, "image" : imageURL?.absoluteString]) { (success, data) in
-              self.message = data as! String
-              
-          }
-          
-          
-          
-          
-          // If sign in succeeded, display the app's main content View.
-        }
-    }
+    
 }
 
 
