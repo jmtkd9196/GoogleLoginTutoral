@@ -18,7 +18,7 @@ class SignInVM: ObservableObject {
 //    @State private var imageURL : URL?
     @State private var message: String = "API 호출 중..."
     @StateObject var userAPI: UserAPI = .init()
-    var user: User = .init(googleSignResponse: User.GoogleSignInInfo(), serverSignResponse: User.HwgSignInInfo())
+    @State var user: User = .init(googleSignResponse: User.GoogleSignInInfo(), serverSignResponse: User.HwgSignInInfo())
     
     //test
     // 연동을 시도 했을때 불러오는 메소드
@@ -79,12 +79,16 @@ class SignInVM: ObservableObject {
           guard let name = result.user.profile?.name else { return }
           guard let email = result.user.profile?.email else { return }
           guard let imageURL = result.user.profile?.imageURL(withDimension: 320)?.absoluteString else { return }
-          guard let name = result.user.idToken?.tokenString else { return }
+          guard let accessToken = result.user.idToken?.tokenString else { return }
           let refreshToken = result.user.refreshToken.tokenString
           
-          var response = Response(name: name, email: email, imageURL: imageURL, accessToken: name, refreshToken: refreshToken)
+          var userData = ["authProvider" : "GOOGLE", "name": name, "email": email, "imageURL": imageURL, "accessToken": accessToken, "refreshToken": refreshToken]
           
-          self.user.googleSignResponse.setInfo(response)
+          
+          
+          print("[userData]: \(userData)")
+          
+//          self.user.googleSignResponse.setInfo(userData)
           
           
           
@@ -96,7 +100,7 @@ class SignInVM: ObservableObject {
 //          print(user.imageURL)
           
           
-          self.userAPI.request("POST", [String(self.user.googleSignResponse.accessToken), String(self.user.googleSignResponse.refreshToken)], ["authProvider" : "GOOGLE", "email" : self.user.googleSignResponse.email, "name" : self.user.googleSignResponse.name, "image" : self.user.googleSignResponse.imageURL]) { (success, data) in
+          self.userAPI.request("POST", userData) { (success, data) in
               self.message = data as! String
               
           }
@@ -120,7 +124,7 @@ extension UIApplication {
 }
 
 extension SignInVM {
-    struct Response: Codable {
+    struct UserData: Codable {
         let name: String
         let email: String
         let imageURL: String

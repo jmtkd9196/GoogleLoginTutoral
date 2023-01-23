@@ -29,12 +29,12 @@ extension User {
             refreshToken = ""
         }
         
-        mutating func setInfo(_ GoogleSignInInfo: SignInVM.Response) {
-            name = GoogleSignInInfo.name
-            email = GoogleSignInInfo.email
-            imageURL = GoogleSignInInfo.imageURL
-            accessToken = GoogleSignInInfo.accessToken
-            refreshToken = GoogleSignInInfo.refreshToken
+        mutating func setInfo(_ googleSignInInfo: SignInVM.UserData) {
+            name = googleSignInInfo.name
+            email = googleSignInInfo.email
+            imageURL = googleSignInInfo.imageURL
+            accessToken = googleSignInInfo.accessToken
+            refreshToken = googleSignInInfo.refreshToken
         }
     }
     
@@ -48,6 +48,10 @@ extension User {
             jwtRefreshToken = ""
             userId = ""
         }
+        
+//        mutating func setInfo(_ serverSignInInfo: UserAPI.UserData) {
+//            
+//        }
     }
     
    

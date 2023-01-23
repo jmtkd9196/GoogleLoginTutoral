@@ -28,59 +28,61 @@ class UserAPI: ObservableObject {
     @Published var signInVM = SignInVM()
     
     
-    // Body가 없는 요청
-    func requestGet(completionHandler: @escaping (Bool, Any) -> Void) {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = HereWeGoAPI.scheme
-        urlComponents.host = HereWeGoAPI.host
-        urlComponents.path = HereWeGoAPI.Path.join.rawValue
-        guard let url = urlComponents.url else {
-            print("Error: cannot create URL")
-            return
-        }
-        
-        //        guard let url = URL(string: url) else {
-        //            print("Error: cannot create URL")
-        //            return
-        //        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            guard error == nil else {
-                print("Error: error calling GET")
-                print(error!)
-                return
-            }
-            guard let data = data else {
-                print("Error: Did not receive data")
-                return
-            }
-            guard let response = response as? HTTPURLResponse, (200 ..< 300) ~= response.statusCode else {
-                print("Error: HTTP request failed")
-                return
-            }
-            guard let output = try? JSONDecoder().decode(Response.self, from: data) else {
-                print("Error: JSON Data Parsing failed")
-                return
-            }
-            
-            completionHandler(true, output.result)
-        }.resume()
-    }
+//    // Body가 없는 요청
+//    func requestGet(completionHandler: @escaping (Bool, Any) -> Void) {
+//        var urlComponents = URLComponents()
+//        urlComponents.scheme = HereWeGoAPI.scheme
+//        urlComponents.host = HereWeGoAPI.host
+//        urlComponents.path = HereWeGoAPI.Path.join.rawValue
+//        guard let url = urlComponents.url else {
+//            print("Error: cannot create URL")
+//            return
+//        }
+//
+//        //        guard let url = URL(string: url) else {
+//        //            print("Error: cannot create URL")
+//        //            return
+//        //        }
+//
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "GET"
+//
+//        URLSession.shared.dataTask(with: request) { data, response, error in
+//            guard error == nil else {
+//                print("Error: error calling GET")
+//                print(error!)
+//                return
+//            }
+//            guard let data = data else {
+//                print("Error: Did not receive data")
+//                return
+//            }
+//            guard let response = response as? HTTPURLResponse, (200 ..< 300) ~= response.statusCode else {
+//                print("Error: HTTP request failed")
+//                return
+//            }
+//            guard let output = try? JSONDecoder().decode(Response.self, from: data) else {
+//                print("Error: JSON Data Parsing failed")
+//                return
+//            }
+//
+//            completionHandler(true, output.result)
+//        }.resume()
+//    }
     
     // Body가 있는 요청
-    func requestPost(method: String, testToken: [String], param: [String: Any], completionHandler: @escaping (Bool, Any) -> Void) {
+    
+    // Header와 Body 파라미터 나눠서 작성하기(아직 안고침)
+    func requestPost(method: String, userData: [String: Any], completionHandler: @escaping (Bool, Any) -> Void) {
         //    let sendData = try! JSONSerialization.data(withJSONObject: param, options: [])
         //    let json = try! JSONSerialization.data(withJSONObject: param)
         //    print(json)
         
-        var user = User(googleSignResponse: signInVM.user.googleSignResponse, serverSignResponse: signInVM.user.serverSignResponse)
+
         
         // parameter(= body)에 설정할 자료들 data -> json으로 변환
         //    do {
-        let json = try! JSONSerialization.data(withJSONObject: param, options: [])
+        let json = try! JSONSerialization.data(withJSONObject: userData, options: [])
         print("###########################")
         print(String(data: json, encoding: .utf8))
         // 결과 :: Optional("{\"name\":\"demnodey\",\"part\":\"development\"}")
@@ -106,12 +108,14 @@ class UserAPI: ObservableObject {
         //            return
         //        }
         
+        
         // 2. url Request 설정 (Header같은 것 설정)
         var urlRequest = URLRequest(url: url)
-        print("[TestTokens] : \(testToken)")
+        print("[AccessToken] : \(userData["accessToken"])")
+        print("[RefreshToken] : \(userData["refreshToken"])")
         urlRequest.httpMethod = method
-        urlRequest.setValue(testToken[0] as! String, forHTTPHeaderField: "Access-Token")
-        urlRequest.setValue(testToken[1] as! String, forHTTPHeaderField: "Refresh-Token")
+        urlRequest.setValue(userData["accessToken"] as! String, forHTTPHeaderField: "Access-Token")
+        urlRequest.setValue(userData["refreshToken"] as! String, forHTTPHeaderField: "Refresh-Token")
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         urlRequest.httpBody = json
         
@@ -140,18 +144,23 @@ class UserAPI: ObservableObject {
             //
             //        //함수가 모두 종료 시 실행되는 핸들러
             //        completionHandler(true, output.result)
+            
+            print(type(of: jsonStr))
+//            var userData = UserData(jwtAccessToken: jsonStr["jwtToken"], jwtRefreshToken: jsonStr["jwtRefreshToken"], userId: jsonStr["userId"])
+            
+//            signInVM.user.serverSignResponse.setInfo(UserData)
         }.resume()
     }
     
     /* 메소드별 동작 분리 */
-    func request(_ method: String, _ testToken: [String], _ param: [String: Any]? = nil, completionHandler: @escaping (Bool, Any) -> Void) {
+    func request(_ method: String, _ userData: [String: Any], completionHandler: @escaping (Bool, Any) -> Void) {
         if method == "GET" {
-            requestGet { (success, data) in
-                completionHandler(success, data)
-            }
+//            requestGet { (success, data) in
+//                completionHandler(success, data)
+//            }
         }
         else {
-            requestPost(method: method, testToken: testToken, param: param!) { (success, data) in
+            requestPost(method: method, userData: userData) { (success, data) in
                 completionHandler(success, data)
             }
         }
@@ -160,3 +169,17 @@ class UserAPI: ObservableObject {
 }
 
 
+extension UserAPI {
+    struct GoogleData: Codable {
+        let name: String
+        let email: String
+        let imageURL: String
+        let accessToken: String
+        let refreshToken: String
+    }
+    struct ServerData {
+        let jwtAccessToken: String
+        let jwtRefreshToken: String
+        let userId: String
+    }
+}
