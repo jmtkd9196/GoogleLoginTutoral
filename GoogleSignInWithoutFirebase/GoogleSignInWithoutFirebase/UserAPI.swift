@@ -28,47 +28,47 @@ class UserAPI: ObservableObject {
     @Published var signInVM = SignInVM()
     
     
-//    // Body가 없는 요청
-//    func requestGet(completionHandler: @escaping (Bool, Any) -> Void) {
-//        var urlComponents = URLComponents()
-//        urlComponents.scheme = HereWeGoAPI.scheme
-//        urlComponents.host = HereWeGoAPI.host
-//        urlComponents.path = HereWeGoAPI.Path.join.rawValue
-//        guard let url = urlComponents.url else {
-//            print("Error: cannot create URL")
-//            return
-//        }
-//
-//        //        guard let url = URL(string: url) else {
-//        //            print("Error: cannot create URL")
-//        //            return
-//        //        }
-//
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "GET"
-//
-//        URLSession.shared.dataTask(with: request) { data, response, error in
-//            guard error == nil else {
-//                print("Error: error calling GET")
-//                print(error!)
-//                return
-//            }
-//            guard let data = data else {
-//                print("Error: Did not receive data")
-//                return
-//            }
-//            guard let response = response as? HTTPURLResponse, (200 ..< 300) ~= response.statusCode else {
-//                print("Error: HTTP request failed")
-//                return
-//            }
-//            guard let output = try? JSONDecoder().decode(Response.self, from: data) else {
-//                print("Error: JSON Data Parsing failed")
-//                return
-//            }
-//
-//            completionHandler(true, output.result)
-//        }.resume()
-//    }
+    // Body가 없는 요청
+    func requestGet(completionHandler: @escaping (Bool, Any) -> Void) {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = HereWeGoAPI.scheme
+        urlComponents.host = HereWeGoAPI.host
+        urlComponents.path = HereWeGoAPI.Path.join.rawValue
+        guard let url = urlComponents.url else {
+            print("Error: cannot create URL")
+            return
+        }
+
+        //        guard let url = URL(string: url) else {
+        //            print("Error: cannot create URL")
+        //            return
+        //        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard error == nil else {
+                print("Error: error calling GET")
+                print(error!)
+                return
+            }
+            guard let data = data else {
+                print("Error: Did not receive data")
+                return
+            }
+            guard let response = response as? HTTPURLResponse, (200 ..< 300) ~= response.statusCode else {
+                print("Error: HTTP request failed")
+                return
+            }
+            guard let output = try? JSONDecoder().decode(Response.self, from: data) else {
+                print("Error: JSON Data Parsing failed")
+                return
+            }
+
+            completionHandler(true, output.result)
+        }.resume()
+    }
     
     // Body가 있는 요청
     
@@ -145,7 +145,6 @@ class UserAPI: ObservableObject {
             //        //함수가 모두 종료 시 실행되는 핸들러
             //        completionHandler(true, output.result)
             
-            print(type(of: jsonStr))
 //            var userData = UserData(jwtAccessToken: jsonStr["jwtToken"], jwtRefreshToken: jsonStr["jwtRefreshToken"], userId: jsonStr["userId"])
             
 //            signInVM.user.serverSignResponse.setInfo(UserData)

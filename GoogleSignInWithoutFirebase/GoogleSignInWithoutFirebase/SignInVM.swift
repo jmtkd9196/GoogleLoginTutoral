@@ -18,7 +18,7 @@ class SignInVM: ObservableObject {
 //    @State private var imageURL : URL?
     @State private var message: String = "API 호출 중..."
     @StateObject var userAPI: UserAPI = .init()
-    @State var user: User = .init(googleSignResponse: User.GoogleSignInInfo(), serverSignResponse: User.HwgSignInInfo())
+    @Published var user: User = .init(googleSignResponse: User.GoogleSignInInfo(), serverSignResponse: User.HwgSignInInfo())
     
     //test
     // 연동을 시도 했을때 불러오는 메소드
@@ -104,6 +104,7 @@ class SignInVM: ObservableObject {
               self.message = data as! String
               
           }
+          print(self.message)
           
           
           
