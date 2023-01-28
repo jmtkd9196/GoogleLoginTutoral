@@ -10,16 +10,11 @@ import GoogleSignIn
 import GoogleSignInSwift
 
 class GoogleAPIViewModel: ObservableObject {
-    //test 
-//    @State private var accessToken : String? = ""
-//    @State private var refreshToken : String? = ""
-//    @State private var email : String? = ""
-//    @State private var name : String? = ""
-//    @State private var imageURL : URL?
     @State private var message: String = "API 호출 중..."
-    @StateObject var userAPI: UserAPI = .init()
-//    @Published var user: User = .init(googleSignResponse: User.GoogleData(), serverSignResponse: User.HwgSignInInfo())
-    @Published var user: User?
+    @StateObject var userAPIViewModel: UserAPIViewModel = .init()
+    //    @Published var user: User = .init(googleSignResponse: User.GoogleData(), serverSignResponse: User.HwgSignInInfo())
+    @Published var user = User()
+    
     
     //test
     // 연동을 시도 했을때 불러오는 메소드
@@ -56,33 +51,41 @@ class GoogleAPIViewModel: ObservableObject {
         print("Disconnect")
     }
     
+    // 구글 로그인 값 받아오기
     func handleSignInButton() -> Void {
-      GIDSignIn.sharedInstance.signIn(withPresenting: UIApplication.shared.rootController()) { signInResult, error in
-          guard let result = signInResult else {
-            // Inspect error
-            return
-          }
-          // Test code
-          print("Success Google!")
-          
-          
-          guard let name = result.user.profile?.name else { return }
-          guard let email = result.user.profile?.email else { return }
-          guard let imageURL = result.user.profile?.imageURL(withDimension: 320)?.absoluteString else { return }
-          guard let accessToken = result.user.idToken?.tokenString else { return }
-          let refreshToken = result.user.refreshToken.tokenString
-          
-          var userData = ["authProvider" : "GOOGLE", "name": name, "email": email, "imageURL": imageURL, "accessToken": accessToken, "refreshToken": refreshToken]
-          
-          print("[userData]: \(userData)")
-          
-          self.userAPI.request("POST", userData) { (success, data) in
-              self.message = data as! String
-              
-          }
-          print(self.message)
-          
-          // If sign in succeeded, display the app's main content View.
+        GIDSignIn.sharedInstance.signIn(withPresenting: UIApplication.shared.rootController()) { signInResult, error in
+            guard let result = signInResult else {
+                
+                // Inspect error
+                return
+            }
+            // Test code
+            print("Success Google!")
+            
+            
+            guard let name = result.user.profile?.name else { return }
+            guard let email = result.user.profile?.email else { return }
+            guard let imageURL = result.user.profile?.imageURL(withDimension: 320)?.absoluteString else { return }
+            guard let accessToken = result.user.idToken?.tokenString else { return }
+            let refreshToken = result.user.refreshToken.tokenString
+            
+            let googleAPIData = Responses.GoogleAPIData(authProvider: "GOOGLE", name: name, email: email, imageURL: imageURL, accessToken: accessToken, refreshToken: refreshToken)
+            
+            
+            self.user.googleAPIData = User.GoogleAPIData(googleAPIData)
+            
+
+            
+            self.userAPIViewModel.request("POST", "GOOGLE", self.user) { (success, data) in
+                print(self.message)
+                self.message = data as! String
+
+                print(self.message)
+                
+            }
+            
+            
+            // If sign in succeeded, display the app's main content View.
         }
     }
 }
@@ -98,11 +101,14 @@ extension UIApplication {
 }
 
 extension GoogleAPIViewModel {
-    struct GoogleAPIData {
-        let name: String
-        let email: String
-        let imageURL: String
-        let accessToken: String
-        let refreshToken: String
+    struct Responses: Codable {
+        struct GoogleAPIData {
+            let authProvider: String
+            let name: String
+            let email: String
+            let imageURL: String
+            let accessToken: String
+            let refreshToken: String
+        }
     }
 }

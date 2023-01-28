@@ -1,5 +1,5 @@
 //
-//  UserAPI.swift
+//  UserAPIViewModel.swift
 //  GoogleSignInWithoutFirebase
 //
 //  Created by Kyungsoo Lee on 2023/01/17.
@@ -17,14 +17,9 @@ fileprivate enum HereWeGoAPI {
     
 }
 
-// Codable을 통해 JSON 객체를 Dictionary 타입으로 만들 수 있게 되었다.
-struct Response: Codable {
-    let success: Bool
-    let result: String
-    let message: String
-}
 
-class UserAPI: ObservableObject {
+
+class UserAPIViewModel: ObservableObject {
     @Published var googleAPIViewModel = GoogleAPIViewModel()
     
     
@@ -38,15 +33,15 @@ class UserAPI: ObservableObject {
             print("Error: cannot create URL")
             return
         }
-
+        
         //        guard let url = URL(string: url) else {
         //            print("Error: cannot create URL")
         //            return
         //        }
-
+        
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-
+        
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard error == nil else {
                 print("Error: error calling GET")
@@ -61,11 +56,11 @@ class UserAPI: ObservableObject {
                 print("Error: HTTP request failed")
                 return
             }
-            guard let output = try? JSONDecoder().decode(Response.self, from: data) else {
+            guard let output = try? JSONDecoder().decode(Responses.StatusCode.self, from: data) else {
                 print("Error: JSON Data Parsing failed")
                 return
             }
-
+            
             completionHandler(true, output.result)
         }.resume()
     }
@@ -73,25 +68,14 @@ class UserAPI: ObservableObject {
     // Body가 있는 요청
     
     // Header와 Body 파라미터 나눠서 작성하기(아직 안고침)
-    func requestPost(method: String, userData: [String: Any], completionHandler: @escaping (Bool, Any) -> Void) {
-        //    let sendData = try! JSONSerialization.data(withJSONObject: param, options: [])
-        //    let json = try! JSONSerialization.data(withJSONObject: param)
-        //    print(json)
-        
-
+    func requestPost(method: String, authProvider: String, userData: User, completionHandler: @escaping (Bool, Any) -> Void) {
         
         // parameter(= body)에 설정할 자료들 data -> json으로 변환
-        //    do {
-        let json = try! JSONSerialization.data(withJSONObject: userData, options: [])
-        print("###########################")
-        print(String(data: json, encoding: .utf8))
+        
+        guard let json = try? JSONEncoder().encode(userData.googleAPIData) else { return }
         // 결과 :: Optional("{\"name\":\"demnodey\",\"part\":\"development\"}")
-        //    } catch {
-        //        print(error.localizedDescription)
-        //    }
         
         // 1. url Component 설정
-        
         var urlComponents = URLComponents()
         urlComponents.scheme = HereWeGoAPI.scheme
         urlComponents.host = HereWeGoAPI.host
@@ -111,11 +95,11 @@ class UserAPI: ObservableObject {
         
         // 2. url Request 설정 (Header같은 것 설정)
         var urlRequest = URLRequest(url: url)
-        print("[AccessToken] : \(userData["accessToken"])")
-        print("[RefreshToken] : \(userData["refreshToken"])")
+        // Test Code
+        
         urlRequest.httpMethod = method
-        urlRequest.setValue(userData["accessToken"] as! String, forHTTPHeaderField: "Access-Token")
-        urlRequest.setValue(userData["refreshToken"] as! String, forHTTPHeaderField: "Refresh-Token")
+        urlRequest.setValue(userData.googleAPIData?.accessToken as! String, forHTTPHeaderField: "Access-Token")
+        urlRequest.setValue(userData.googleAPIData?.refreshToken as! String, forHTTPHeaderField: "Refresh-Token")
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         urlRequest.httpBody = json
         
@@ -136,30 +120,28 @@ class UserAPI: ObservableObject {
                 return
             }
             print("[response] : \(response)")
-            //        guard let output = try? JSONDecoder().decode(Response.self, from: data) else {
-            //            print("Error: JSON Data Parsing failed")
-            //            return
-            //        }
-            //        print("[output] : \(output)")
-            //
-            //        //함수가 모두 종료 시 실행되는 핸들러
-            //        completionHandler(true, output.result)
+//            guard let output = try? JSONDecoder().decode(Responses.StatusCode.self, from: data) else {
+//                print("Error: JSON Data Parsing failed")
+//                return
+//            }
+//            print("[output] : \(output)")
             
-//            var userData = UserData(jwtAccessToken: jsonStr["jwtToken"], jwtRefreshToken: jsonStr["jwtRefreshToken"], userId: jsonStr["userId"])
+            //함수가 모두 종료 시 실행되는 핸들러
             
-//            signInVM.user.serverSignResponse.setInfo(UserData)
+            completionHandler(true, jsonStr)
+            
         }.resume()
     }
     
     /* 메소드별 동작 분리 */
-    func request(_ method: String, _ userData: [String: Any], completionHandler: @escaping (Bool, Any) -> Void) {
+    func request(_ method: String, _ authProvider: String, _ userData: User, completionHandler: @escaping (Bool, Any) -> Void) {
         if method == "GET" {
-//            requestGet { (success, data) in
-//                completionHandler(success, data)
-//            }
+            //            requestGet { (success, data) in
+            //                completionHandler(success, data)
+            //            }
         }
         else {
-            requestPost(method: method, userData: userData) { (success, data) in
+            requestPost(method: method, authProvider: authProvider, userData: userData) { (success, data) in
                 completionHandler(success, data)
             }
         }
@@ -168,17 +150,20 @@ class UserAPI: ObservableObject {
 }
 
 
-extension UserAPI {
-    struct GoogleData: Codable {
-        let name: String
-        let email: String
-        let imageURL: String
-        let accessToken: String
-        let refreshToken: String
+extension UserAPIViewModel {
+    struct Responses: Codable {
+        struct UserAPIData: Codable {
+            let jwtAccessToken: String
+            let jwtRefreshToken: String
+            let userId: String
+            
+        }
+        // Codable을 통해 JSON 객체를 Dictionary 타입으로 만들 수 있게 되었다.
+        struct StatusCode: Codable {
+            let success: Bool
+            let result: String
+            let message: String
+        }
     }
-    struct ServerData: Codable {
-        let jwtAccessToken: String
-        let jwtRefreshToken: String
-        let userId: String
-    }
+    
 }
