@@ -8,28 +8,28 @@
 import Foundation
 
 struct User: Codable {
-    var googleSignResponse: GoogleSignInInfo
-    var serverSignResponse: HwgSignInInfo
+    var googleSignResponse: GoogleAPIData?
+    var serverSignResponse: UserAPIData?
 
 }
 
 extension User {
-    struct GoogleSignInInfo: Codable {
+    struct GoogleAPIData: Codable {
         var name: String
         var email: String
         var imageURL: String
         var accessToken: String
         var refreshToken: String
         
-        init() {
-            name = ""
-            email = ""
-            imageURL = ""
-            accessToken = ""
-            refreshToken = ""
-        }
+//        init() {
+//            name = ""
+//            email = ""
+//            imageURL = ""
+//            accessToken = ""
+//            refreshToken = ""
+//        }
         
-        mutating func setInfo(_ googleSignInInfo: SignInVM.UserData) {
+        mutating func setInfo(_ googleSignInInfo: GoogleAPIViewModel.GoogleAPIData) {
             name = googleSignInInfo.name
             email = googleSignInInfo.email
             imageURL = googleSignInInfo.imageURL
@@ -38,16 +38,16 @@ extension User {
         }
     }
     
-    struct HwgSignInInfo: Codable {
+    struct UserAPIData: Codable {
         var jwtAccessToken: String
         var jwtRefreshToken: String
         var userId: String
-        
-        init() {
-            jwtAccessToken = ""
-            jwtRefreshToken = ""
-            userId = ""
-        }
+//
+//        init() {
+//            jwtAccessToken = ""
+//            jwtRefreshToken = ""
+//            userId = ""
+//        }
         
 //        mutating func setInfo(_ serverSignInInfo: UserAPI.UserData) {
 //            

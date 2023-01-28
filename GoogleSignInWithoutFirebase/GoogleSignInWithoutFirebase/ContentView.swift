@@ -11,11 +11,11 @@ import GoogleSignIn
 
 struct ContentView: View {
     @StateObject var userAPI: UserAPI = .init()
-    @StateObject var signVM: SignInVM = .init()
+    @StateObject var googleAPIViewModel: GoogleAPIViewModel = .init()
     
     var body: some View {
         VStack {
-            GoogleSignInButton(action: signVM.handleSignInButton)
+            GoogleSignInButton(action: googleAPIViewModel.handleSignInButton)
         }
         .padding()
     }

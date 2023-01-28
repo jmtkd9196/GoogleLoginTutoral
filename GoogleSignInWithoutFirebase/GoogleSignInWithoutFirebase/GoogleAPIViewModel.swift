@@ -1,5 +1,5 @@
 //
-//  SignInVM.swift
+//  GoogleAPIViewModel.swift
 //  GoogleSignInWithoutFirebase
 //
 //  Created by Kyungsoo Lee on 2023/01/12.
@@ -9,8 +9,8 @@ import SwiftUI
 import GoogleSignIn
 import GoogleSignInSwift
 
-class SignInVM: ObservableObject {
-    //test
+class GoogleAPIViewModel: ObservableObject {
+    //test 
 //    @State private var accessToken : String? = ""
 //    @State private var refreshToken : String? = ""
 //    @State private var email : String? = ""
@@ -18,7 +18,8 @@ class SignInVM: ObservableObject {
 //    @State private var imageURL : URL?
     @State private var message: String = "API 호출 중..."
     @StateObject var userAPI: UserAPI = .init()
-    @Published var user: User = .init(googleSignResponse: User.GoogleSignInInfo(), serverSignResponse: User.HwgSignInInfo())
+//    @Published var user: User = .init(googleSignResponse: User.GoogleData(), serverSignResponse: User.HwgSignInInfo())
+    @Published var user: User?
     
     //test
     // 연동을 시도 했을때 불러오는 메소드
@@ -63,17 +64,6 @@ class SignInVM: ObservableObject {
           }
           // Test code
           print("Success Google!")
-//          print(result.user.idToken?.tokenString)
-//          print("[RefreshToken] : \(result.user.refreshToken.tokenString)")
-//          print(result.user.profile?.name)
-//          print(result.user.profile?.email)
-//          print(result.user.profile?.givenName)
-//          print(result.user.profile?.hasImage)
-//          print("[imageURL] : \(result.user.profile?.imageURL(withDimension: 320))")
-          
-         
-          
-          
           
           
           guard let name = result.user.profile?.name else { return }
@@ -84,30 +74,13 @@ class SignInVM: ObservableObject {
           
           var userData = ["authProvider" : "GOOGLE", "name": name, "email": email, "imageURL": imageURL, "accessToken": accessToken, "refreshToken": refreshToken]
           
-          
-          
           print("[userData]: \(userData)")
-          
-//          self.user.googleSignResponse.setInfo(userData)
-          
-          
-          
-//
-//          print(user.accessToken)
-//          print(user.refreshToken)
-//          print(user.name)
-//          print(user.email)
-//          print(user.imageURL)
-          
           
           self.userAPI.request("POST", userData) { (success, data) in
               self.message = data as! String
               
           }
           print(self.message)
-          
-          
-          
           
           // If sign in succeeded, display the app's main content View.
         }
@@ -124,8 +97,8 @@ extension UIApplication {
     }
 }
 
-extension SignInVM {
-    struct UserData: Codable {
+extension GoogleAPIViewModel {
+    struct GoogleAPIData {
         let name: String
         let email: String
         let imageURL: String

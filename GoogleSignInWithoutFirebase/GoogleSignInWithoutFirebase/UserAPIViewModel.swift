@@ -25,7 +25,7 @@ struct Response: Codable {
 }
 
 class UserAPI: ObservableObject {
-    @Published var signInVM = SignInVM()
+    @Published var googleAPIViewModel = GoogleAPIViewModel()
     
     
     // Body가 없는 요청
@@ -176,7 +176,7 @@ extension UserAPI {
         let accessToken: String
         let refreshToken: String
     }
-    struct ServerData {
+    struct ServerData: Codable {
         let jwtAccessToken: String
         let jwtRefreshToken: String
         let userId: String
