@@ -8,7 +8,6 @@
 import Foundation
 
 struct User: Codable {
-    var authProvider: String?
     var googleAPIData: GoogleAPIData?
     var userAPIData: UserAPIData?
 

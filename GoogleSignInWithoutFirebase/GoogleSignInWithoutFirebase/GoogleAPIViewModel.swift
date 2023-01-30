@@ -11,7 +11,7 @@ import GoogleSignInSwift
 
 class GoogleAPIViewModel: ObservableObject {
     @State private var message: String = "API 호출 중..."
-    @StateObject var userAPIViewModel: UserAPIViewModel = .init()
+    @StateObject var userAPIViewModel = UserAPIViewModel()
     //    @Published var user: User = .init(googleSignResponse: User.GoogleData(), serverSignResponse: User.HwgSignInInfo())
     @Published var user = User()
     
@@ -59,7 +59,6 @@ class GoogleAPIViewModel: ObservableObject {
                 // Inspect error
                 return
             }
-            // Test code
             print("Success Google!")
             
             
@@ -78,10 +77,9 @@ class GoogleAPIViewModel: ObservableObject {
             
             self.userAPIViewModel.request("POST", "GOOGLE", self.user) { (success, data) in
                 print(self.message)
-                self.message = data as! String
-
-                print(self.message)
-                
+//                self.message = data as! String
+                self.user.userAPIData = User.UserAPIData(data as! UserAPIViewModel.Responses.UserAPIData)
+                print(self.user)
             }
             
             

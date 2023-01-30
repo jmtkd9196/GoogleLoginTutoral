@@ -114,21 +114,22 @@ class UserAPIViewModel: ObservableObject {
                 return
             }
             let jsonStr = String(decoding: data, as: UTF8.self)
-            print("[data] : \(jsonStr)")
+            guard let jsonDictionary = try? JSONSerialization.jsonObject(with: Data(jsonStr.utf8), options: []) as? [String: Any] else { return }
             guard let response = response as? HTTPURLResponse, (200 ..< 300) ~= response.statusCode else {
                 print("Error: HTTP request failed")
                 return
             }
-            print("[response] : \(response)")
 //            guard let output = try? JSONDecoder().decode(Responses.StatusCode.self, from: data) else {
 //                print("Error: JSON Data Parsing failed")
 //                return
 //            }
 //            print("[output] : \(output)")
             
-            //함수가 모두 종료 시 실행되는 핸들러
+
+            let userAPIData = Responses.UserAPIData(jwtAccessToken: jsonDictionary["jwtRefreshToken"] as! String, jwtRefreshToken: jsonDictionary["jwtRefreshToken"] as! String, userId: jsonDictionary["userId"] as! String)
             
-            completionHandler(true, jsonStr)
+            //함수가 모두 종료 시 실행되는 핸들러
+            completionHandler(true, userAPIData)
             
         }.resume()
     }
