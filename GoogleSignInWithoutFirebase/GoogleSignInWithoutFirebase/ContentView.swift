@@ -15,10 +15,16 @@ struct ContentView: View {
     
     
     var body: some View {
-        VStack {
-            GoogleSignInButton(action: googleAPIViewModel.handleSignInButton)
+        if googleAPIViewModel.isLogined {
+            Text("is Logined")
+            Text("\((googleAPIViewModel.user.googleAPIData?.name)!)")
+        } else {
+            VStack {
+                GoogleSignInButton(action: googleAPIViewModel.handleSignInButton)
+            }
+            .padding()
         }
-        .padding()
+        
     }
 }
 

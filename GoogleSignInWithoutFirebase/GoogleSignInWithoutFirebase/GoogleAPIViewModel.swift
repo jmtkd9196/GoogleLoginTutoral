@@ -10,10 +10,11 @@ import GoogleSignIn
 import GoogleSignInSwift
 
 class GoogleAPIViewModel: ObservableObject {
-    @State private var message: String = "API 호출 중..."
+    @Published private var message: String = "API 호출 중..."
     @StateObject var userAPIViewModel = UserAPIViewModel()
     //    @Published var user: User = .init(googleSignResponse: User.GoogleData(), serverSignResponse: User.HwgSignInInfo())
     @Published var user = User()
+    @Published var isLogined = false
     
     
     //test
@@ -75,11 +76,20 @@ class GoogleAPIViewModel: ObservableObject {
             
 
             
-            self.userAPIViewModel.request("POST", "GOOGLE", self.user) { (success, data) in
-                print(self.message)
-//                self.message = data as! String
-                self.user.userAPIData = User.UserAPIData(data as! UserAPIViewModel.Responses.UserAPIData)
-                print(self.user)
+            self.userAPIViewModel.request("POST", "GOOGLE", self.user) { (result, data) in
+                DispatchQueue.main.async { [weak self] in
+                    print(self?.message)
+                    //                self.message = data as! String
+                    self?.user.userAPIData = User.UserAPIData(data as! UserAPIViewModel.Responses.UserAPIData)
+                    print(self?.user)
+                    if result {
+                        self?.message = "로그인 성공"
+                        self?.isLogined = result
+                    } else {
+                        self?.message = "로그인 실패"
+                    }
+                    print(self?.message)
+                }
             }
             
             
