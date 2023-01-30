@@ -10,8 +10,9 @@ import GoogleSignInSwift
 import GoogleSignIn
 
 struct ContentView: View {
-    @StateObject var userAPIViewModel: UserAPIViewModel = .init()
+//    @StateObject var userAPIViewModel: UserAPIViewModel = .init()
     @StateObject var googleAPIViewModel: GoogleAPIViewModel = .init()
+    
     
     var body: some View {
         VStack {
