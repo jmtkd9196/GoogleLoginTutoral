@@ -10,7 +10,7 @@ import GoogleSignIn
 import GoogleSignInSwift
 
 class GoogleAPIViewModel: ObservableObject {
-    @Published private var message: String = "API 호출 중..."
+    @Published var message: String = "API 호출 중..."
     @StateObject var userAPIViewModel = UserAPIViewModel()
     //    @Published var user: User = .init(googleSignResponse: User.GoogleData(), serverSignResponse: User.HwgSignInInfo())
     @Published var user = User()
